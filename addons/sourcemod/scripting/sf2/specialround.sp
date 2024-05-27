@@ -343,7 +343,7 @@ static void OnPlayerDeath(SF2_BasePlayer client, int attacker, int inflictor, bo
 			{
 				case 1:
 				{
-					player.Bleed(true, _, 4.0);
+					player.Bleed(true, _, 1.5);
 					EmitSoundToClient(reds, BLEED_ROLL, reds, SNDCHAN_AUTO, SNDLEVEL_SCREAMING);
 				}
 				case 2:
@@ -353,14 +353,13 @@ static void OnPlayerDeath(SF2_BasePlayer client, int attacker, int inflictor, bo
 				}
 				case 3:
 				{
-					player.ChangeCondition(TFCond_Gas, _, 5.0);
-					EmitSoundToClient(reds, GAS_ROLL, reds, SNDCHAN_AUTO, SNDLEVEL_SCREAMING);
+					player.Bleed(true, _, 1.5);
+					EmitSoundToClient(reds, BLEED_ROLL, reds, SNDCHAN_AUTO, SNDLEVEL_SCREAMING);
 				}
 				case 4:
 				{
-					int maxHealth = SDKCall(g_SDKGetMaxHealth, reds);
-					float damageToTake = float(maxHealth) / 10.0;
-					player.TakeDamage(true, _, _, damageToTake, 128);
+					player.Bleed(true, _, 1.5);
+					EmitSoundToClient(reds, BLEED_ROLL, reds, SNDCHAN_AUTO, SNDLEVEL_SCREAMING);
 				}
 				case 5:
 				{
@@ -603,7 +602,7 @@ static void SpecialRoundGetDescriptionHud(int specialRound, char[] buffer,int bu
 	}
 
 	g_SpecialRoundsConfig.Rewind();
-	char specialRoundString[32];
+	char specialRoundString[128];
 	FormatEx(specialRoundString, sizeof(specialRoundString), "%d", specialRound);
 
 	if (!g_SpecialRoundsConfig.JumpToKey(specialRoundString))
@@ -624,7 +623,7 @@ static void SpecialRoundGetDescriptionChat(int specialRound, char[] buffer,int b
 	}
 
 	g_SpecialRoundsConfig.Rewind();
-	char specialRoundString[64];
+	char specialRoundString[256];
 	FormatEx(specialRoundString, sizeof(specialRoundString), "%d", specialRound);
 
 	if (!g_SpecialRoundsConfig.JumpToKey(specialRoundString))
@@ -645,7 +644,7 @@ static void SpecialRoundGetIconHud(int specialRound, char[] buffer,int bufferLen
 	}
 
 	g_SpecialRoundsConfig.Rewind();
-	char specialRoundString[32];
+	char specialRoundString[128];
 	FormatEx(specialRoundString, sizeof(specialRoundString), "%d", specialRound);
 
 	if (!g_SpecialRoundsConfig.JumpToKey(specialRoundString))
@@ -664,7 +663,7 @@ static bool SpecialRoundCanBeSelected(int specialRound)
 	}
 
 	g_SpecialRoundsConfig.Rewind();
-	char specialRoundString[32];
+	char specialRoundString[128];
 	FormatEx(specialRoundString, sizeof(specialRoundString), "%d", specialRound);
 
 	if (!g_SpecialRoundsConfig.JumpToKey(specialRoundString))
@@ -835,13 +834,13 @@ static void SpecialRoundCycleFinish()
 
 	if (!SF_SpecialRound(SPECIALROUND_SUPRISE))
 	{
-		char descHud[64];
+		char descHud[128];
 		SpecialRoundGetDescriptionHud(g_SpecialRoundType, descHud, sizeof(descHud));
 
 		char iconHud[64];
 		SpecialRoundGetIconHud(g_SpecialRoundType, iconHud, sizeof(iconHud));
 
-		char descChat[64];
+		char descChat[256];
 		SpecialRoundGetDescriptionChat(g_SpecialRoundType, descChat, sizeof(descChat));
 
 		SpecialRoundGameText(descHud, iconHud);
@@ -1234,13 +1233,13 @@ void SpecialRoundStart()
 		}
 		case SPECIALROUND_INSANEDIFFICULTY:
 		{
-			if (g_DifficultyConVar.IntValue < 3)
+			if (g_DifficultyConVar.IntValue < 4)
 			{
-				g_DifficultyConVar.SetString("3"); // Override difficulty to Insane.
+				g_DifficultyConVar.SetString("4"); // Override difficulty to Nightmare?
 			}
-			if (g_OverrideDifficulty == -1 || g_OverrideDifficulty < 3)
+			if (g_OverrideDifficulty == -1 || g_OverrideDifficulty < 4)
 			{
-				g_OverrideDifficulty = 3;
+				g_OverrideDifficulty = 4;
 			}
 			SF_AddSpecialRound(SPECIALROUND_INSANEDIFFICULTY);
 		}
@@ -1279,13 +1278,13 @@ void SpecialRoundStart()
 		case SPECIALROUND_2DOUBLE:
 		{
 			ForceInNextPlayersInQueue(g_MaxPlayersConVar.IntValue);
-			if (g_DifficultyConVar.IntValue < 3 && !SF_IsBoxingMap())
+			if (g_DifficultyConVar.IntValue < 4 && !SF_IsBoxingMap())
 			{
-				g_DifficultyConVar.SetString("3"); // Override difficulty to Insane.
+				g_DifficultyConVar.SetString("4"); // Override difficulty to Nightmare.originisInsane.
 			}
-			if (g_OverrideDifficulty == -1 || g_OverrideDifficulty < 3)
+			if (g_OverrideDifficulty == -1 || g_OverrideDifficulty < 4)
 			{
-				g_OverrideDifficulty = 3;
+				g_OverrideDifficulty = 4;
 			}
 			char buffer[SF2_MAX_PROFILE_NAME_LENGTH];
 			ArrayList selectableBosses = GetSelectableBossProfileList().Clone();
@@ -1318,13 +1317,13 @@ void SpecialRoundStart()
 		case SPECIALROUND_DOUBLEMAXPLAYERS:
 		{
 			ForceInNextPlayersInQueue(g_MaxPlayersConVar.IntValue);
-			if (g_DifficultyConVar.IntValue < 3)
+			if (g_DifficultyConVar.IntValue < 5)
 			{
-				g_DifficultyConVar.SetString("3"); // Override difficulty to Insane.
+				g_DifficultyConVar.SetString("5"); // Override difficulty to Apollyon.originisInsane
 			}
-			if (g_OverrideDifficulty == -1 || g_OverrideDifficulty < 3)
+			if (g_OverrideDifficulty == -1 || g_OverrideDifficulty < 5)
 			{
-				g_OverrideDifficulty = 3;
+				g_OverrideDifficulty = 5;
 			}
 			SF_AddSpecialRound(SPECIALROUND_DOUBLEMAXPLAYERS);
 		}
@@ -1776,13 +1775,13 @@ static Action Timer_SpecialRoundVoteLoop(Handle timer)
 
 Action Timer_DisplaySpecialRound(Handle timer)
 {
-	char descHud[64];
+	char descHud[128];
 	SpecialRoundGetDescriptionHud(g_SpecialRoundType, descHud, sizeof(descHud));
 
 	char iconHud[64];
 	SpecialRoundGetIconHud(g_SpecialRoundType, iconHud, sizeof(iconHud));
 
-	char descChat[64];
+	char descChat[256];
 	SpecialRoundGetDescriptionChat(g_SpecialRoundType, descChat, sizeof(descChat));
 
 	SpecialRoundGameText(descHud, iconHud);
@@ -1841,63 +1840,63 @@ static void SpecialCreateVote()
 		{
 			case SPECIALROUND_DOUBLETROUBLE:
 			{
-				FormatEx(item, sizeof(item), "Double Trouble");
+				FormatEx(item, sizeof(item), "더블 트러블");
 			}
 			case SPECIALROUND_INSANEDIFFICULTY:
 			{
-				FormatEx(item, sizeof(item), "Suicide Time");
+				FormatEx(item, sizeof(item), "악몽의 시간");
 			}
 			case SPECIALROUND_DOUBLEMAXPLAYERS:
 			{
-				FormatEx(item, sizeof(item), "Double Players");
+				FormatEx(item, sizeof(item), "무저갱");
 			}
 			case SPECIALROUND_LIGHTSOUT:
 			{
-				FormatEx(item, sizeof(item), "Lights Out");
+				FormatEx(item, sizeof(item), "소등");
 			}
 			case SPECIALROUND_BEACON:
 			{
-				FormatEx(item, sizeof(item), "Bacon Spray");
+				FormatEx(item, sizeof(item), "베이컨 스프레이");
 			}
 			case SPECIALROUND_SILENTSLENDER:
 			{
-				FormatEx(item, sizeof(item), "Silent Slender");
+				FormatEx(item, sizeof(item), "사일런트 슬렌더");
 			}
 			case SPECIALROUND_NOGRACE:
 			{
-				FormatEx(item, sizeof(item), "Start Running");
+				FormatEx(item, sizeof(item), "준비 땅");
 			}
 			case SPECIALROUND_2DOUBLE:
 			{
-				FormatEx(item, sizeof(item), "Double It All");
+				FormatEx(item, sizeof(item), "더블로 가");
 			}
 			case SPECIALROUND_DOUBLEROULETTE:
 			{
-				FormatEx(item, sizeof(item), "Double Roulette");
+				FormatEx(item, sizeof(item), "더블 룰렛");
 			}
 			case SPECIALROUND_NIGHTVISION:
 			{
-				FormatEx(item, sizeof(item), "Night Vision");
+				FormatEx(item, sizeof(item), "나이트비전");
 			}
 			case SPECIALROUND_INFINITEFLASHLIGHT:
 			{
-				FormatEx(item, sizeof(item), "Infinite Flashlight");
+				FormatEx(item, sizeof(item), "손전등 무한");
 			}
 			case SPECIALROUND_DREAMFAKEBOSSES:
 			{
-				FormatEx(item, sizeof(item), "Just a Dream");
+				FormatEx(item, sizeof(item), "꿈일 뿐이야");
 			}
 			case SPECIALROUND_EYESONTHECLOACK:
 			{
-				FormatEx(item, sizeof(item), "Countdown");
+				FormatEx(item, sizeof(item), "카운트다운");
 			}
 			case SPECIALROUND_NOPAGEBONUS:
 			{
-				FormatEx(item, sizeof(item), "Deadline");
+				FormatEx(item, sizeof(item), "제출 기한");
 			}
 			case SPECIALROUND_DUCKS:
 			{
-				FormatEx(item, sizeof(item), "Ducks");
+				FormatEx(item, sizeof(item), "오리");
 			}
 			case SPECIALROUND_1UP:
 			{
@@ -1905,31 +1904,31 @@ static void SpecialCreateVote()
 			}
 			case SPECIALROUND_NOULTRAVISION:
 			{
-				FormatEx(item, sizeof(item), "Blind");
+				FormatEx(item, sizeof(item), "실명");
 			}
 			case SPECIALROUND_SUPRISE:
 			{
-				FormatEx(item, sizeof(item), "Surprise");
+				FormatEx(item, sizeof(item), "안 알랴줌");
 			}
 			case SPECIALROUND_LASTRESORT:
 			{
-				FormatEx(item, sizeof(item), "Last Resort");
+				FormatEx(item, sizeof(item), "최후의 수단");
 			}
 			case SPECIALROUND_ESCAPETICKETS:
 			{
-				FormatEx(item, sizeof(item), "Escape Tickets");
+				FormatEx(item, sizeof(item), "탈출 티켓");
 			}
 			case SPECIALROUND_REVOLUTION:
 			{
-				FormatEx(item, sizeof(item), "Special Round Revolution");
+				FormatEx(item, sizeof(item), "룰렛 혁명");
 			}
 			case SPECIALROUND_DISTORTION:
 			{
-				FormatEx(item, sizeof(item), "Space Distortion");
+				FormatEx(item, sizeof(item), "공간 왜곡");
 			}
 			case SPECIALROUND_MULTIEFFECT:
 			{
-				FormatEx(item, sizeof(item), "Multieffect");
+				FormatEx(item, sizeof(item), "멀티이펙트");
 			}
 			case SPECIALROUND_BOO:
 			{
@@ -1937,23 +1936,23 @@ static void SpecialCreateVote()
 			}
 			case SPECIALROUND_COFFEE:
 			{
-				FormatEx(item, sizeof(item), "Coffee");
+				FormatEx(item, sizeof(item), "커피");
 			}
 			case SPECIALROUND_PAGEDETECTOR:
 			{
-				FormatEx(item, sizeof(item), "Page Detector");
+				FormatEx(item, sizeof(item), "아이템 탐지기");
 			}
 			case SPECIALROUND_CLASSSCRAMBLE:
 			{
-				FormatEx(item, sizeof(item), "Class Scramble");
+				FormatEx(item, sizeof(item), "병과 스크램블");
 			}
 			case SPECIALROUND_PAGEREWARDS:
 			{
-				FormatEx(item, sizeof(item), "Page Rewards");
+				FormatEx(item, sizeof(item), "단서 보상");
 			}
 			case SPECIALROUND_TINYBOSSES:
 			{
-				FormatEx(item, sizeof(item), "Tiny Bosses");
+				FormatEx(item, sizeof(item), "타이니 보스");
 			}
 			case SPECIALROUND_RUNNINGINTHE90S:
 			{
@@ -1961,23 +1960,23 @@ static void SpecialCreateVote()
 			}
 			case SPECIALROUND_TRIPLEBOSSES:
 			{
-				FormatEx(item, sizeof(item), "Triple Bosses");
+				FormatEx(item, sizeof(item), "트리플 보스");
 			}
 			case SPECIALROUND_BOSSROULETTE:
 			{
-				FormatEx(item, sizeof(item), "Boss Roulette");
+				FormatEx(item, sizeof(item), "보스 룰렛");
 			}
 			case SPECIALROUND_WALLHAX:
 			{
-				FormatEx(item, sizeof(item), "Wall Hax");
+				FormatEx(item, sizeof(item), "월핵");
 			}
 			case SPECIALROUND_SINGLEPLAYER:
 			{
-				FormatEx(item, sizeof(item), "Single Player");
+				FormatEx(item, sizeof(item), "싱글 플레이어");
 			}
 			case SPECIALROUND_BEATBOX:
 			{
-				FormatEx(item, sizeof(item), "Beat Box");
+				FormatEx(item, sizeof(item), "비트박스");
 			}
 		}
 		for (int bit = 0; bit < 30; bit++)
@@ -2036,7 +2035,7 @@ static int Menu_SpecialVote(Handle menu, MenuAction action,int param1,int param2
 		}
 		case MenuAction_VoteEnd:
 		{
-			char specialRound[64], specialRoundName[64], display[120];
+			char specialRound[64], specialRoundName[128], display[120];
 			NativeVotes_GetItem(menu, param1, specialRound, sizeof(specialRound), specialRoundName, sizeof(specialRoundName));
 
 			CPrintToChatAll("{royalblue}%t {default}%t", "SF2 Prefix", "SF2 Special Round Vote Successful", specialRoundName);

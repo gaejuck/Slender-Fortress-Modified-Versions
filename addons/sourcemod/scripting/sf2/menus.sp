@@ -838,9 +838,19 @@ static int Menu_VoteDifficulty(Menu menu, MenuAction action, int param1, int par
 			difficulty = Difficulty_Hard;
 		}
 
-		if ((SF_SpecialRound(SPECIALROUND_INSANEDIFFICULTY) || SF_SpecialRound(SPECIALROUND_ESCAPETICKETS) || SF_SpecialRound(SPECIALROUND_2DOUBLE) || SF_SpecialRound(SPECIALROUND_DOUBLEMAXPLAYERS) || SF_SpecialRound(SPECIALROUND_WALLHAX)) && difficulty < Difficulty_Insane)
+		if ((SF_SpecialRound(SPECIALROUND_ESCAPETICKETS) || SF_SpecialRound(SPECIALROUND_WALLHAX)) && difficulty < Difficulty_Insane)
 		{
 			difficulty = Difficulty_Insane;
+		}
+		
+		if ((SF_SpecialRound(SPECIALROUND_INSANEDIFFICULTY) || SF_SpecialRound(SPECIALROUND_2DOUBLE)) && difficulty < Difficulty_Nightmare)
+		{
+			difficulty = Difficulty_Nightmare;
+		}
+		
+		if ((SF_SpecialRound(SPECIALROUND_DOUBLEMAXPLAYERS) || SF_SpecialRound(SPECIALROUND_DOUBLEMAXPLAYERS)) && difficulty < Difficulty_Nightmare)
+		{
+			difficulty = Difficulty_Apollyon;
 		}
 
 		if (GetRandomInt(1, 200) <= 2 || playersCalledForNightmare)

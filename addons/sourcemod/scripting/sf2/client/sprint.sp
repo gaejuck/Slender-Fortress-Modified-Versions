@@ -658,6 +658,20 @@ static void Hook_SpeedThink(int client)
 					sprintSpeed += (sprintSpeed * 0.075);
 				}
 			}
+			case 355: // The Fan O'War
+			{
+				if (player.GetPropEnt(Prop_Send, "m_hActiveWeapon") == weaponEnt)
+				{
+					sprintSpeed += (sprintSpeed * 0.035);
+				}
+			}
+			case 461: // Big Earner
+			{
+				if (player.GetPropEnt(Prop_Send, "m_hActiveWeapon") == weaponEnt)
+				{
+					sprintSpeed -= (sprintSpeed * 0.022);
+				}
+			}
 			case 775: // Escape Plan
 			{
 				float health = float(player.GetProp(Prop_Send, "m_iHealth"));
@@ -676,13 +690,25 @@ static void Hook_SpeedThink(int client)
 				}
 				else if (percentage < 0.405 && percentage >= 0.205)
 				{
-					walkSpeed += (walkSpeed * 0.15);
-					sprintSpeed += (sprintSpeed * 0.15);
+					walkSpeed += (walkSpeed * 0.2);
+					sprintSpeed += (sprintSpeed * 0.2);
 				}
 				else if (percentage < 0.205)
 				{
-					walkSpeed += (walkSpeed * 0.2);
-					sprintSpeed += (sprintSpeed * 0.2);
+					walkSpeed += (walkSpeed * 0.32);
+					sprintSpeed += (sprintSpeed * 0.3);
+				}
+			}
+			case 1190: // Banana
+			{
+				float health = float(player.GetProp(Prop_Send, "m_iHealth"));
+				float maxHealth = float(SDKCall(g_SDKGetMaxHealth, player.index));
+				float percentage = health / maxHealth;
+
+				if (percentage >= 0.001)
+				{
+					walkSpeed += (walkSpeed * 0.022);
+					sprintSpeed += (sprintSpeed * 0.022);
 				}
 			}
 		}

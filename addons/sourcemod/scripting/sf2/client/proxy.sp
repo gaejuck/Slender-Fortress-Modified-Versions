@@ -1176,7 +1176,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 	#endif
 
 	bool removeWeapons = true;
-	bool keepUtilityItems = false;
+	bool keepUtilityItems = true;
 	bool restrictWeapons = true;
 	bool useStock = false;
 	bool removeWearables = false;
@@ -1219,7 +1219,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 		{
 			removeWeapons = false;
 			restrictWeapons = false;
-			keepUtilityItems = false;
+			keepUtilityItems = true;
 			preventAttack = false;
 		}
 	}
@@ -1230,7 +1230,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 		removeWeapons = true;
 		useStock = true;
 		removeWearables = true;
-		keepUtilityItems = false;
+		keepUtilityItems = true;
 	}
 
 	if (IsRoundInWarmup())
@@ -1312,6 +1312,17 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 				RemoveEntity(ent);
 			}
 		}
+		
+		ent = -1;
+		while ((ent = FindEntityByClassname(ent, "tf_wearable_demoshield")) != -1)
+		{
+			if (GetEntPropEnt(ent, Prop_Send, "m_hOwnerEntity") == client)
+			{
+				RemoveEntity(ent);
+			}
+		}
+
+		ClientSwitchToWeaponSlot(client, TFWeaponSlot_Melee);
 
 		int weaponEnt = INVALID_ENT_REFERENCE;
 		weaponEnt = GetPlayerWeaponSlot(client, TFWeaponSlot_Secondary);
@@ -1321,7 +1332,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 			int itemIndex = GetEntProp(weaponEnt, Prop_Send, "m_iItemDefinitionIndex");
 			switch (itemIndex)
 			{
-				case 163, 129, 226, 354, 1001, 131, 406, 1099, 42, 159, 311, 433, 863, 1002, 1190:
+				case 129, 226, 354, 1001, 42, 159, 433, 863, 1002, 1190:
 				{
 					//Do nothing
 				}
@@ -1590,7 +1601,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 				{
 					TF2_RemoveWeaponSlot(client, slot);
 
-					weaponHandle = PrepareItemHandle("tf_weapon_fireaxe", 214, 0, 0, "180 ; 12.0 ; 412 ; 1.2");
+					weaponHandle = PrepareItemHandle("tf_weapon_fireaxe", 214, 0, 0, "180 ; 12.0 ; 412 ; 1.1");
 					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
 					delete weaponHandle;
 					weaponHandle = null;
@@ -1606,11 +1617,138 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 					weaponHandle = null;
 					EquipPlayerWeapon(client, entity);
 				}
+				case 42: //Sandvich
+				{
+					TF2_RemoveWeaponSlot(client, slot);
+					
+					if (!SF_SpecialRound(SPECIALROUND_THANATOPHOBIA))
+					{
+					weaponHandle = PrepareItemHandle("tf_weapon_lunchbox", 42, 0, 0, "876 ; 0.5 ; 551 ; 1 ; 77 ; 0.0 ; 57 ; 3");
+					}
+					else
+					{
+					weaponHandle = PrepareItemHandle("tf_weapon_lunchbox", 42, 0, 0, "876 ; 0.5 ; 551 ; 1 ; 77 ; 0.0");
+					}
+					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
+					delete weaponHandle;
+					weaponHandle = null;
+					EquipPlayerWeapon(client, entity);
+				}
+				case 863: //Robo Sandvich
+				{
+					TF2_RemoveWeaponSlot(client, slot);
+
+					if (!SF_SpecialRound(SPECIALROUND_THANATOPHOBIA))
+					{
+					weaponHandle = PrepareItemHandle("tf_weapon_lunchbox", 863, 0, 0, "876 ; 0.5 ; 551 ; 1 ; 77 ; 0.0 ; 57 ; 3");
+					}
+					else
+					{
+					weaponHandle = PrepareItemHandle("tf_weapon_lunchbox", 863, 0, 0, "876 ; 0.5 ; 551 ; 1 ; 77 ; 0.0");
+					}
+					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
+					delete weaponHandle;
+					weaponHandle = null;
+					EquipPlayerWeapon(client, entity);
+				}
+				case 1002: //Festive Sandvich
+				{
+					TF2_RemoveWeaponSlot(client, slot);
+
+					if (!SF_SpecialRound(SPECIALROUND_THANATOPHOBIA))
+					{
+					weaponHandle = PrepareItemHandle("tf_weapon_lunchbox", 1002, 0, 0, "876 ; 0.5 ; 551 ; 1 ; 77 ; 0.0 ; 57 ; 3");
+					}
+					else
+					{
+					weaponHandle = PrepareItemHandle("tf_weapon_lunchbox", 1002, 0, 0, "876 ; 0.5 ; 551 ; 1 ; 77 ; 0.0");
+					}
+					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
+					delete weaponHandle;
+					weaponHandle = null;
+					EquipPlayerWeapon(client, entity);
+				}
+				case 159: //Dalokohs Bar
+				{
+					TF2_RemoveWeaponSlot(client, slot);
+
+					if (!SF_SpecialRound(SPECIALROUND_THANATOPHOBIA))
+					{
+					weaponHandle = PrepareItemHandle("tf_weapon_lunchbox", 159, 0, 0, "139 ; 1 ; 551 ; 1 ; 26 ; 30 ; 876 ; 0.25 ; 57 ; 1");
+					}
+					else
+					{
+					weaponHandle = PrepareItemHandle("tf_weapon_lunchbox", 159, 0, 0, "139 ; 1 ; 551 ; 1 ; 26 ; 30 ; 876 ; 0.25 ; 77 ; 0.0");
+					}
+					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
+					delete weaponHandle;
+					weaponHandle = null;
+					EquipPlayerWeapon(client, entity);
+					if (!IsRoundPlaying())
+					{
+						SetEntityHealth(client, 330);
+					}
+				}
+				case 433: //Fishcake
+				{
+					TF2_RemoveWeaponSlot(client, slot);
+
+					if (!SF_SpecialRound(SPECIALROUND_THANATOPHOBIA))
+					{
+					weaponHandle = PrepareItemHandle("tf_weapon_lunchbox", 433, 0, 0, "139 ; 1 ; 551 ; 1 ; 26 ; 30 ; 876 ; 0.25 ; 57 ; 1");
+					}
+					else
+					{
+					weaponHandle = PrepareItemHandle("tf_weapon_lunchbox", 433, 0, 0, "139 ; 1 ; 551 ; 1 ; 26 ; 30 ; 876 ; 0.25 ; 77 ; 0.0");
+					}
+					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
+					delete weaponHandle;
+					weaponHandle = null;
+					EquipPlayerWeapon(client, entity);
+					if (!IsRoundPlaying())
+					{
+						SetEntityHealth(client, 330);
+					}
+				}
+				case 1190: //Second Banana
+				{
+					TF2_RemoveWeaponSlot(client, slot);
+
+					if (!SF_SpecialRound(SPECIALROUND_THANATOPHOBIA))
+					{
+					weaponHandle = PrepareItemHandle("tf_weapon_lunchbox", 1190, 0, 0, "551 ; 1 ; 107 ; 1.1 ; 876 ; 0.2 ; 57 ; 2");
+					}
+					else
+					{
+					weaponHandle = PrepareItemHandle("tf_weapon_lunchbox", 1190, 0, 0, "551 ; 1 ; 107 ; 1.1 ; 77 ; 0.0 ; 876 ; 0.5");
+					}
+					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
+					delete weaponHandle;
+					weaponHandle = null;
+					EquipPlayerWeapon(client, entity);
+				}
+				case 354: //Concheror
+				{
+					TF2_RemoveWeaponSlot(client, slot);
+
+					if (!SF_SpecialRound(SPECIALROUND_THANATOPHOBIA))
+					{
+					weaponHandle = PrepareItemHandle("tf_weapon_buff_item", 354, 0, 0, "116 ; 3 ; 57 ; 3 ; 319 ; 0.5");
+					}
+					else
+					{
+					weaponHandle = PrepareItemHandle("tf_weapon_buff_item", 354, 0, 0, "116 ; 3 ; 319 ; 1.25");
+					}
+					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
+					delete weaponHandle;
+					weaponHandle = null;
+					EquipPlayerWeapon(client, entity);
+				}
 				case 326: // The Back Scratcher
 				{
 					TF2_RemoveWeaponSlot(client, slot);
 
-					weaponHandle = PrepareItemHandle("tf_weapon_fireaxe", 326, 0, 0, "2 ; 1.25 ; 412 ; 1.25 ; 69 ; 0.25 ; 108 ; 1.25");
+					weaponHandle = PrepareItemHandle("tf_weapon_fireaxe", 326, 0, 0, "2 ; 1.25 ; 412 ; 1.1 ; 69 ; 0.25 ; 108 ; 1.25");
 					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
 					delete weaponHandle;
 					weaponHandle = null;
@@ -1622,11 +1760,11 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 
 					if (!SF_SpecialRound(SPECIALROUND_THANATOPHOBIA))
 					{
-						weaponHandle = PrepareItemHandle("tf_weapon_bonesaw", 304, 0, 0, "200 ; 0.0 ; 57 ; 2 ; 1 ; 0.8");
+						weaponHandle = PrepareItemHandle("tf_weapon_bonesaw", 304, 0, 0, "200 ; 0.0 ; 57 ; 3 ; 1 ; 0.8");
 					}
 					else
 					{
-						weaponHandle = PrepareItemHandle("tf_weapon_bonesaw", 304, 0, 0, "1 ; 0.8");
+						weaponHandle = PrepareItemHandle("tf_weapon_bonesaw", 304, 0, 0, "1 ; 1.0");
 					}
 					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
 					delete weaponHandle;
@@ -1661,7 +1799,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 				{
 					TF2_RemoveWeaponSlot(client, slot);
 
-					weaponHandle = PrepareItemHandle("tf_weapon_fists", 426, 0, 0, "6 ; 0.6 ; 107 ; 1.15 ; 737 ; 4.0 ; 1 ; 0.4 ; 412 ; 1.2");
+					weaponHandle = PrepareItemHandle("tf_weapon_fists", 426, 0, 0, "6 ; 0.6 ; 107 ; 1.15 ; 737 ; 4.0 ; 1 ; 0.4 ; 412 ; 1.00");
 					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
 					delete weaponHandle;
 					weaponHandle = null;
@@ -1725,13 +1863,13 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 				{
 					TF2_RemoveWeaponSlot(client, slot);
 
-					weaponHandle = PrepareItemHandle("tf_weapon_knife", 649, 0, 0, "");
+					weaponHandle = PrepareItemHandle("tf_weapon_knife", 649, 0, 0, "794 ; 0.75 ; 65 ; 1.25 ; 67 ; 1.25");
 					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
 					delete weaponHandle;
 					weaponHandle = null;
 					EquipPlayerWeapon(client, entity);
 				}
-				case 574: //Spy-cicle
+				case 574: //Wanga Prick
 				{
 					TF2_RemoveWeaponSlot(client, slot);
 
@@ -1740,6 +1878,74 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 					delete weaponHandle;
 					weaponHandle = null;
 					EquipPlayerWeapon(client, entity);
+				}
+				case 317: // Candy Cane
+				{
+					TF2_RemoveWeaponSlot(client, slot);
+					
+					if (!SF_SpecialRound(SPECIALROUND_THANATOPHOBIA))
+					{
+						weaponHandle = PrepareItemHandle("tf_weapon_bat", 317, 0, 0, "57 ; 2 ; 203 ; 1");
+					}
+					else
+					{
+						weaponHandle = PrepareItemHandle("tf_weapon_bat", 317, 0, 0, "203 ; 1");
+					}
+					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
+					delete weaponHandle;
+					weaponHandle = null;
+					EquipPlayerWeapon(client, entity);
+				}
+				case 355: // The Fan O'War
+				{
+					TF2_RemoveWeaponSlot(client, slot);
+
+					weaponHandle = PrepareItemHandle("tf_weapon_bat", 355, 0, 0, "1 ; 0.25 ; 107 ; 1.2 ; 275 ; 1 ; 412 ; 1.25");
+					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
+					delete weaponHandle;
+					weaponHandle = null;
+					EquipPlayerWeapon(client, entity);
+				}
+				case 153: // Homewrecker
+				{
+					TF2_RemoveWeaponSlot(client, slot);
+
+					weaponHandle = PrepareItemHandle("tf_weapon_fireaxe", 153, 0, 0, "1 ; 0.8 ; 224 ; 1.7");
+					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
+					delete weaponHandle;
+					weaponHandle = null;
+					EquipPlayerWeapon(client, entity);
+				}
+				case 739: // The Lollichop
+				{
+					TF2_RemoveWeaponSlot(client, slot);
+					
+					if (!SF_SpecialRound(SPECIALROUND_THANATOPHOBIA))
+					{
+						weaponHandle = PrepareItemHandle("tf_weapon_fireaxe", 739, 0, 0, "1 ; 0.75 ; 57 ; 2");
+					}
+					else
+					{
+						weaponHandle = PrepareItemHandle("tf_weapon_fireaxe", 739, 0, 0, "1 ; 1.00");
+					}
+					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
+					delete weaponHandle;
+					weaponHandle = null;
+					EquipPlayerWeapon(client, entity);
+				}
+				case 461: //Big Earner
+				{
+					TF2_RemoveWeaponSlot(client, slot);
+
+					weaponHandle = PrepareItemHandle("tf_weapon_knife", 461, 0, 0, "2 ; 1.89 ; 26 ; 25 ; 54 ; 0.9 ; 108 ; 1.4");
+					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
+					delete weaponHandle;
+					weaponHandle = null;
+					EquipPlayerWeapon(client, entity);
+					if (!IsRoundPlaying())
+					{
+						SetEntityHealth(client, 150);
+					}
 				}
 			}
 		}
@@ -1847,7 +2053,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 		{
 			if (g_PlayerHasRegenerationItem[client])
 			{
-				healthFromPack = 0.40;
+				healthFromPack = 1.0;
 			}
 			if (TF2_GetPlayerClass(client) == TFClass_Medic)
 			{
@@ -1862,7 +2068,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 			healthFromPack = g_ClassHealthPickupMultiplier[classToInt];
 			if (g_PlayerHasRegenerationItem[client])
 			{
-				healthFromPack -= 0.6;
+				healthFromPack -= 0.0;
 			}
 			if (healthFromPack <= 0.0)
 			{
@@ -1916,7 +2122,23 @@ public Action TF2Items_OnGiveNamedItem(int client, char[] classname, int itemDef
 	{
 		case 642:
 		{
-			Handle itemOverride = PrepareItemHandle("tf_wearable", 642, 0, 0, "376 ; 1.0 ; 377 ; 0.2 ; 57 ; 2 ; 412 ; 1.10");
+			Handle itemOverride = PrepareItemHandle("tf_wearable", 642, 0, 0, "376 ; 1.0 ; 377 ; 0.2 ; 57 ; 4 ; 412 ; 1.00");
+
+			if (itemOverride != null)
+			{
+				itemHandle = itemOverride;
+
+				return Plugin_Changed;
+			}
+			delete itemOverride;
+			itemOverride = null;
+		}
+	}
+	switch (itemDefinitionIndex)
+	{
+		case 307:
+		{
+			Handle itemOverride = PrepareItemHandle("tf_weapon_stickbomb", 307, 0, 0, "5 ; 1.2 ; 773 ; 2.0 ; 15 ; 0 ; 181 ; 2");
 
 			if (itemOverride != null)
 			{
