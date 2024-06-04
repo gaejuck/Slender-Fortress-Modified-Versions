@@ -25,7 +25,7 @@ static void OnPlayerSpawn(SF2_BasePlayer client)
 		return;
 	}
 
-	if (client.Team > 1 && !g_SeeUpdateMenu[client.index])
+	if (client.Team > 1 && !g_SeeUpdateMenu[client.index] && g_ChangelogUpdate != null)
 	{
 		g_SeeUpdateMenu[client.index] = true;
 		g_ChangelogUpdate.Display(client.index, 30);

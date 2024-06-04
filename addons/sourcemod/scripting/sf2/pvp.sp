@@ -207,6 +207,8 @@ void PvP_Initialize()
 
 	GameData gameData = new GameData("sf2");
 
+	Client_CalcIsAttackCriticalHookSetUp(gameData);
+
 	g_DHookCTFBaseRocketExplode = DynamicHook.FromConf(gameData, "CTFBaseRocket::Explode");
 	if (g_DHookCTFBaseRocketExplode == null)
 	{
@@ -225,6 +227,7 @@ void PvP_Initialize()
 		SetFailState("Failed to create hook CBaseEntity::VPhysicsUpdate from gamedata!");
 	}
 
+	/*
 	g_DDetourPhysicsDispatchThink = DynamicDetour.FromConf(gameData, "CBaseEntity::PhysicsDispatchThink");
 	if (g_DDetourPhysicsDispatchThink == null)
 	{
@@ -233,6 +236,7 @@ void PvP_Initialize()
 
 	g_DDetourPhysicsDispatchThink.Enable(Hook_Pre, PhysicsDispatchThinkPre);
 	g_DDetourPhysicsDispatchThink.Enable(Hook_Post, PhysicsDispatchThinkPost);
+	*/
 
 	g_DDetourAllowedToHealTarget = DynamicDetour.FromConf(gameData, "CWeaponMedigun::AllowedToHealTarget");
 	if (g_DDetourAllowedToHealTarget == null)

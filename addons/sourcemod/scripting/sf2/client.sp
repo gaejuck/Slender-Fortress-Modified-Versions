@@ -54,6 +54,71 @@ void Client_SetupAPI()
 #define SF2_PLAYER_VIEWBOB_SCALE_Y 0.0
 #define SF2_PLAYER_VIEWBOB_SCALE_Z 0.0
 
+static DynamicDetour g_DDetourCalcIsAttackCriticalHelper;
+static DynamicDetour g_DDetourCalcIsAttackCriticalHelperNoCrits;
+
+void Client_CalcIsAttackCriticalHookSetUp(GameData gameData)
+{
+	g_DDetourCalcIsAttackCriticalHelper = DynamicDetour.FromConf(gameData, "CTFWeaponBase::CalcIsAttackCriticalHelper");
+	if (g_DDetourCalcIsAttackCriticalHelper == null)
+	{
+		SetFailState("Failed to create hook CTFWeaponBase::CalcIsAttackCriticalHelper from gamedata!");
+	}
+
+	g_DDetourCalcIsAttackCriticalHelper.Enable(Hook_Post, Hook_CalcIsAttackCriticalPost);
+
+	g_DDetourCalcIsAttackCriticalHelperNoCrits = DynamicDetour.FromConf(gameData, "CTFWeaponBase::CalcIsAttackCriticalHelperNoCrits");
+	if (g_DDetourCalcIsAttackCriticalHelperNoCrits == null)
+	{
+		SetFailState("Failed to create hook CTFWeaponBase::CalcIsAttackCriticalHelperNoCrits from gamedata!");
+	}
+
+	g_DDetourCalcIsAttackCriticalHelperNoCrits.Enable(Hook_Post, Hook_CalcIsAttackCriticalPost);
+}
+
+MRESReturn Hook_CalcIsAttackCriticalPost(int weapon, DHookReturn ret)
+{
+	if (!g_Enabled || g_RestartSessionEnabled)
+	{
+		return MRES_Ignored;
+	}
+
+	int client = GetEntPropEnt(weapon, Prop_Send, "m_hOwnerEntity");
+
+	if (g_PlayerEliminated[client] && !g_PlayerProxy[client])
+	{
+		return MRES_Ignored;
+	}
+
+	int entity = GetClientAimTarget(client, false);
+	if (entity > MaxClients)
+	{
+		char buffer[64];
+		if (GetEntityClassname(entity, buffer, sizeof(buffer)) && StrContains(buffer, "prop_dynamic") == 0)
+		{
+			if (GetEntPropString(entity, Prop_Data, "m_iName", buffer, sizeof(buffer)) && StrContains(buffer, "sf2_page", false) == 0)
+			{
+				float pos1[3], pos2[3];
+				GetClientEyePosition(client, pos1);
+				GetEntPropVector(entity, Prop_Data, "m_vecOrigin", pos2);
+
+				if (GetVectorSquareMagnitude(pos1, pos2) < SquareFloat(50.0))
+				{
+					CollectPage(entity, client);
+				}
+			}
+		}
+	}
+
+	if (g_PlayerProxy[client] && !IsClientCritBoosted(client))
+	{
+		ret.Value = false;
+		return MRES_Supercede;
+	}
+
+	return MRES_Ignored;
+}
+
 MRESReturn Hook_ClientWantsLagCompensationOnEntity(int client, DHookReturn returnHandle, DHookParam params)
 {
 	if (!g_Enabled || IsFakeClient(client))
@@ -189,6 +254,7 @@ Action Hook_ClientSetTransmit(int client, int other)
 	return Plugin_Continue;
 }
 
+/*
 public Action TF2_CalcIsAttackCritical(int client, int weapon, char[] weaponName, bool &result)
 {
 	if (!g_Enabled || g_RestartSessionEnabled || (g_PlayerEliminated[client] && !g_PlayerProxy[client]))
@@ -224,6 +290,7 @@ public Action TF2_CalcIsAttackCritical(int client, int weapon, char[] weaponName
 
 	return Plugin_Continue;
 }
+*/
 
 Action Hook_TEFireBullets(const char[] te_name, const int[] players, int numClients, float delay)
 {
