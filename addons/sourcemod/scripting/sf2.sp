@@ -6539,6 +6539,11 @@ Action Timer_SetPlayerHealth(Handle timer, any data)
 
 Action Timer_PlayerSwitchToBlue(Handle timer, any userid)
 {
+	if (!g_Enabled)
+	{
+		return Plugin_Stop;
+	}
+
 	int client = GetClientOfUserId(userid);
 	if (client <= 0)
 	{

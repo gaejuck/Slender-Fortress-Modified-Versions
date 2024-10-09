@@ -1414,12 +1414,6 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 					if (useStock || IsWeaponRestricted(playerClass, GetEntProp(weaponEnt, Prop_Send, "m_iItemDefinitionIndex")))
 					{
 						TF2_RemoveWeaponSlotAndWearables(client, slot);
-						
-						if(g_PlayerProxy[client])
-						{
-							continue;
-						}
-
 						switch (slot)
 						{
 							case TFWeaponSlot_Primary:
@@ -1460,7 +1454,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 									}
 									case TFClass_Engineer:
 									{
-										itemHandle = PrepareItemHandle("tf_weapon_shotgun_primary", 9, 0, 0, "");
+										itemHandle = PrepareItemHandle("tf_weapon_shotgun", 9, 0, 0, "");
 									}
 								}
 							}
@@ -1478,7 +1472,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 									}
 									case TFClass_Soldier:
 									{
-										itemHandle = PrepareItemHandle("tf_weapon_shotgun_soldier", 10, 0, 0, "");
+										itemHandle = PrepareItemHandle("tf_weapon_shotgun", 10, 0, 0, "");
 									}
 									case TFClass_DemoMan:
 									{
@@ -1486,7 +1480,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 									}
 									case TFClass_Heavy:
 									{
-										itemHandle = PrepareItemHandle("tf_weapon_shotgun_hwg", 11, 0, 0, "");
+										itemHandle = PrepareItemHandle("tf_weapon_shotgun", 11, 0, 0, "");
 									}
 									case TFClass_Medic:
 									{
@@ -1494,7 +1488,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 									}
 									case TFClass_Pyro:
 									{
-										itemHandle = PrepareItemHandle("tf_weapon_shotgun_pyro", 12, 0, 0, "");
+										itemHandle = PrepareItemHandle("tf_weapon_shotgun", 12, 0, 0, "");
 									}
 									case TFClass_Engineer:
 									{
@@ -1739,7 +1733,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 
 					if (!SF_SpecialRound(SPECIALROUND_THANATOPHOBIA))
 					{
-					weaponHandle = PrepareItemHandle("tf_weapon_buff_item", 354, 0, 0, "116 ; 3 ; 57 ; 3 ; 319 ; 0.5");
+					weaponHandle = PrepareItemHandle("tf_weapon_buff_item", 354, 0, 0, "116 ; 3 ; 57 ; 3 ; 319 ; 0.85");
 					}
 					else
 					{
@@ -1760,6 +1754,24 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 					weaponHandle = null;
 					EquipPlayerWeapon(client, entity);
 				}
+				case 609: // The Scottish Handshake
+				{
+					TF2_RemoveWeaponSlot(client, slot);
+					
+
+					if (!SF_SpecialRound(SPECIALROUND_THANATOPHOBIA))
+					{
+						weaponHandle = PrepareItemHandle("tf_weapon_bottle", 609, 0, 0, "1 ; 0.85 ; 26 ; -15 ; 4344 ; 15 ; 108 ; 1.25 ; 57 ; 3");
+					}
+					else
+					{
+						weaponHandle = PrepareItemHandle("tf_weapon_bottle", 609, 0, 0, "1 ; 1.25 ; 26 ; 15 ; 108 ; 0.75");
+					}
+					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
+					delete weaponHandle;
+					weaponHandle = null;
+					EquipPlayerWeapon(client, entity);
+				}
 				case 304: // Amputator
 				{
 					TF2_RemoveWeaponSlot(client, slot);
@@ -1772,6 +1784,26 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 					{
 						weaponHandle = PrepareItemHandle("tf_weapon_bonesaw", 304, 0, 0, "1 ; 1.0");
 					}
+					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
+					delete weaponHandle;
+					weaponHandle = null;
+					EquipPlayerWeapon(client, entity);
+				}
+				case 173: // Vita-Saw
+				{
+					TF2_RemoveWeaponSlot(client, slot);
+
+					weaponHandle = PrepareItemHandle("tf_weapon_bonesaw", 173, 0, 0, "5 ; 1.25 ; 4339 ; 1");
+					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
+					delete weaponHandle;
+					weaponHandle = null;
+					EquipPlayerWeapon(client, entity);
+				}
+				case 413: // The Solemn Vow
+				{
+					TF2_RemoveWeaponSlot(client, slot);
+
+					weaponHandle = PrepareItemHandle("tf_weapon_bonesaw", 413, 0, 0, "263 ; 1.75 ; 264 ; 2.0 ; 1 ; 0.75 ; 26 ; 15");
 					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
 					delete weaponHandle;
 					weaponHandle = null;
@@ -1820,6 +1852,26 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 					TF2_RemoveWeaponSlot(client, slot);
 
 					weaponHandle = PrepareItemHandle("tf_weapon_shovel", 775, 0, 0, "414 ; 1 ; 734 ; 0.1");
+					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
+					delete weaponHandle;
+					weaponHandle = null;
+					EquipPlayerWeapon(client, entity);
+				}
+				case 37: //Ubersaw
+				{
+					TF2_RemoveWeaponSlot(client, slot);
+
+					weaponHandle = PrepareItemHandle("tf_weapon_bonesaw", 37, 0, 0, "");
+					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
+					delete weaponHandle;
+					weaponHandle = null;
+					EquipPlayerWeapon(client, entity);
+				}
+				case 1003: //Festive Ubersaw
+				{
+					TF2_RemoveWeaponSlot(client, slot);
+
+					weaponHandle = PrepareItemHandle("tf_weapon_bonesaw", 1003, 0, 0, "");
 					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
 					delete weaponHandle;
 					weaponHandle = null;
@@ -1928,12 +1980,22 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 					
 					if (!SF_SpecialRound(SPECIALROUND_THANATOPHOBIA))
 					{
-						weaponHandle = PrepareItemHandle("tf_weapon_fireaxe", 739, 0, 0, "1 ; 0.75 ; 57 ; 2");
+						weaponHandle = PrepareItemHandle("tf_weapon_fireaxe", 739, 0, 0, "1 ; 0.9 ; 57 ; 2");
 					}
 					else
 					{
 						weaponHandle = PrepareItemHandle("tf_weapon_fireaxe", 739, 0, 0, "1 ; 1.00");
 					}
+					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
+					delete weaponHandle;
+					weaponHandle = null;
+					EquipPlayerWeapon(client, entity);
+				}
+				case 155: // The Southern Hospitality
+				{
+					TF2_RemoveWeaponSlot(client, slot);
+
+					weaponHandle = PrepareItemHandle("tf_weapon_wrench", 155, 0, 0, "1 ; 0.8 ; 4362 ; 0.5");
 					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
 					delete weaponHandle;
 					weaponHandle = null;
@@ -2144,7 +2206,7 @@ public Action TF2Items_OnGiveNamedItem(int client, char[] classname, int itemDef
 	{
 		case 307:
 		{
-			Handle itemOverride = PrepareItemHandle("tf_weapon_stickbomb", 307, 0, 0, "5 ; 1.2 ; 773 ; 2.0 ; 15 ; 0 ; 181 ; 2");
+			Handle itemOverride = PrepareItemHandle("tf_weapon_stickbomb", 307, 0, 0, "5 ; 1.2 ; 773 ; 2.0 ; 15 ; 0 ; 191 ; 999");
 
 			if (itemOverride != null)
 			{

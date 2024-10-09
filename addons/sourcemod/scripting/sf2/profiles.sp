@@ -577,6 +577,14 @@ void ReloadBossProfiles()
 
 	g_BossPackVoteEnabled = true;
 
+	// Random Bosspack
+	char bosspack[64];
+	int seeds[1];
+	seeds[0] = GetTime();
+	SetURandomSeed(seeds, 1);
+	Format(bosspack, sizeof(bosspack), "bosspack%d", GetRandomInt(1, 11));
+	g_BossProfilePackConVar.SetString(bosspack);
+
 	// Try loading boss packs, if they're set to load.
 	g_BossPackConfig.Rewind();
 	if (g_BossPackConfig.JumpToKey("packs"))
