@@ -2001,6 +2001,20 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 					weaponHandle = null;
 					EquipPlayerWeapon(client, entity);
 				}
+				case 142: // The Gunslinger
+				{
+					TF2_RemoveWeaponSlot(client, slot);
+
+					weaponHandle = PrepareItemHandle("tf_weapon_robot_arm", 142, 0, 0, "5 ; 1.1 ; 26 ; 25 ; 124 ; 1 ; 551 ; 1 ; 464 ; 2.5 ; 4373 ; 1.25");
+					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
+					delete weaponHandle;
+					weaponHandle = null;
+					EquipPlayerWeapon(client, entity);
+					if (!IsRoundPlaying())
+					{
+						SetEntityHealth(client, 150);
+					}
+				}
 				case 461: //Big Earner
 				{
 					TF2_RemoveWeaponSlot(client, slot);
@@ -2206,7 +2220,7 @@ public Action TF2Items_OnGiveNamedItem(int client, char[] classname, int itemDef
 	{
 		case 307:
 		{
-			Handle itemOverride = PrepareItemHandle("tf_weapon_stickbomb", 307, 0, 0, "5 ; 1.2 ; 773 ; 2.0 ; 15 ; 0 ; 191 ; 999");
+			Handle itemOverride = PrepareItemHandle("tf_weapon_stickbomb", 307, 0, 0, "5 ; 1.2 ; 773 ; 2.0 ; 15 ; 0");
 
 			if (itemOverride != null)
 			{
