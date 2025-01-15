@@ -57,7 +57,7 @@ void Client_SetupAPI()
 static DynamicDetour g_DDetourCalcIsAttackCriticalHelper;
 static DynamicDetour g_DDetourCalcIsAttackCriticalHelperNoCrits;
 
-void Client_CalcIsAttackCriticalHookSetUp(GameData gameData)
+public void Client_CalcIsAttackCriticalHookSetUp(GameData gameData)
 {
 	g_DDetourCalcIsAttackCriticalHelper = DynamicDetour.FromConf(gameData, "CTFWeaponBase::CalcIsAttackCriticalHelper");
 	if (g_DDetourCalcIsAttackCriticalHelper == null)
