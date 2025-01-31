@@ -1204,7 +1204,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 		removeWeapons = false;
 		restrictWeapons = false;
 		keepUtilityItems = false;
-		preventAttack = false;
+		preventAttack = true;
 	}
 
 	if (IsClientInPvE(client))
@@ -1238,7 +1238,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 		removeWeapons = false;
 		restrictWeapons = false;
 		keepUtilityItems = false;
-		preventAttack = false;
+		preventAttack = true;
 	}
 
 	if (IsClientInGhostMode(client))
@@ -1823,6 +1823,20 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 						SetEntityHealth(client, 300);
 					}
 				}
+				case 1084: //	Festive Gloves of Running Urgently (G.R.U.)
+				{
+					TF2_RemoveWeaponSlot(client, slot);
+
+					weaponHandle = PrepareItemHandle("tf_weapon_fists", 1084, 0, 0, "107 ; 1.3 ; 772 ; 1.5 ; 129 ; 0.0 ; 414 ; 1.0 ; 1 ; 0.75");
+					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
+					delete weaponHandle;
+					weaponHandle = null;
+					EquipPlayerWeapon(client, entity);
+					if (!IsRoundPlaying())
+					{
+						SetEntityHealth(client, 300);
+					}
+				}
 				case 1100: //Bread Bite
 				{
 					TF2_RemoveWeaponSlot(client, slot);
@@ -1832,6 +1846,10 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 					delete weaponHandle;
 					weaponHandle = null;
 					EquipPlayerWeapon(client, entity);
+					if (!IsRoundPlaying())
+					{
+						SetEntityHealth(client, 300);
+					}
 				}
 				case 426: //Eviction Notice
 				{
@@ -2005,7 +2023,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 				{
 					TF2_RemoveWeaponSlot(client, slot);
 
-					weaponHandle = PrepareItemHandle("tf_weapon_robot_arm", 142, 0, 0, "5 ; 1.1 ; 26 ; 25 ; 124 ; 1 ; 551 ; 1 ; 464 ; 2.5 ; 4373 ; 1.25");
+					weaponHandle = PrepareItemHandle("tf_weapon_robot_arm", 142, 0, 0, "5 ; 1.1 ; 26 ; 25 ; 124 ; 1 ; 551 ; 1 ; 464 ; 2.5 ; 4373 ; 2.0");
 					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
 					delete weaponHandle;
 					weaponHandle = null;
@@ -2019,7 +2037,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 				{
 					TF2_RemoveWeaponSlot(client, slot);
 
-					weaponHandle = PrepareItemHandle("tf_weapon_knife", 461, 0, 0, "2 ; 1.89 ; 26 ; 25 ; 54 ; 0.9 ; 108 ; 1.4");
+					weaponHandle = PrepareItemHandle("tf_weapon_knife", 461, 0, 0, "2 ; 1.89 ; 26 ; 25 ; 54 ; 0.9 ; 108 ; 1.4 ; 28 ; 0");
 					int entity = TF2Items_GiveNamedItem(client, weaponHandle);
 					delete weaponHandle;
 					weaponHandle = null;

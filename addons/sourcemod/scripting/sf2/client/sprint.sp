@@ -645,8 +645,7 @@ static void Hook_SpeedThink(int client)
 			{
 				if (player.GetPropEnt(Prop_Send, "m_hActiveWeapon") == weaponEnt)
 				{
-					sprintSpeed -= (sprintSpeed * 0.05);
-					walkSpeed -= (walkSpeed * 0.05);
+					sprintSpeed -= (sprintSpeed * 0.035);
 				}
 			}
 			case 214: // The Powerjack
@@ -657,6 +656,20 @@ static void Hook_SpeedThink(int client)
 				}
 			}
 			case 239: // Gloves of Running Urgently
+			{
+				if (player.GetPropEnt(Prop_Send, "m_hActiveWeapon") == weaponEnt)
+				{
+					sprintSpeed += (sprintSpeed * 0.075);
+				}
+			}
+			case 1084: // Festive Gloves of Running Urgently (G.R.U.)
+			{
+				if (player.GetPropEnt(Prop_Send, "m_hActiveWeapon") == weaponEnt)
+				{
+					sprintSpeed += (sprintSpeed * 0.075);
+				}
+			}
+			case 1100: // Bread Bite
 			{
 				if (player.GetPropEnt(Prop_Send, "m_hActiveWeapon") == weaponEnt)
 				{

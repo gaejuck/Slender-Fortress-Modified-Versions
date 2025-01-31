@@ -24,12 +24,14 @@
 	{
 		"#format"		"{1:d}"
 		"en" "Vote for ({lightblue}Apollyon{default}/{lightblue}Nightmare{default}) failed, ({lightblue}{1}{default}%%) of the vote is required to pass. The difficulty has been changed to:"
+		"ko" "({lightblue}아폴리온{default}/{lightblue}악몽{default}) 난이도 투표가 실패했습니다. ({lightblue}{1}{default}%%) 이상의 투표율이 만족되어야합니다. 난이도가 다음 난이도로 결정됩니다:"
 	}
 
 	"SF2 Difficulty Vote Finished Unsuccessful Runoff"
 	{
 		"#format"		"{1:d}"
 		"en" "Vote for ({lightblue}Apollyon{default}/{lightblue}Nightmare{default}) failed, ({lightblue}{1}{default}%%) of the vote is required to pass. Initiating a runoff vote..."
+		"ko" "({lightblue}아폴리온{default}/{lightblue}악몽{default}) 난이도 투표가 실패했습니다. ({lightblue}{1}{default}%%) 이상의 투표율이 만족되어야합니다. 마지막 투표를 개시합니다..."
 	}
 
 	"SF2 Easy Difficulty"
@@ -197,6 +199,7 @@
 	{
 		"#format"		"{1:d}"
 		"en"			"ALERT: If you do not move from your spot in {1} seconds, you will be eliminated from the game."
+		"ko"			"!!!경고!!!: {1} 초 동안 움직이지 않으면, 보스에게 죽게 됩니다!"
 	}
 
 	"SF2 Main Menu Title"
@@ -413,7 +416,7 @@
 		"fi"	"Juokseminen ja Kestävyys"
 		"chi"	"冲刺与耐力"
 		"pt"	"Corrida e energia"
-		"ko"	"달리기와 스테미너"
+		"ko"	"달리기와 스태미너"
 	}
 
 	"SF2 Help Sprinting And Stamina Description"
@@ -423,7 +426,7 @@
 		"fi"	"Sinulla on kyky juosta, jota pystyt käyttämään\npitämällä pojassa erikois hyökkäys nappiasi\n(oletuksena näppäin MOUSE3, jota voit vaihtaa asetuksista.\nKuitenkin, juokseminen ei kestä loputtomiin,\njoten on parasta säästää kestävyytesi hätätilanteisiin.\nMyös hyppiminen vähentää kestävyyttäsi\n \nLisäksi, juokseminen tekee enemmän ääntä\nkuin kävely tai kyykistely, joten juokseminen\nei ole vaihtoehto hiippailussa."
 		"chi"	"你可以通过按住特殊攻击键(默认鼠标中键)来冲刺。\n然而，冲刺需要耐力，因此最好在紧急情况下使用。\n跳跃也会消耗耐力。\n \n另外，冲刺比走路和蹲伏要发出更多的声音，\n因此假如你想隐蔽，那就不要冲刺。"
 		"pt"	"Você pode correr ao segurar o botão de ataque especial\n(MOUSE3 por padrão). (Use a bind \"+attack3\" para alterar\na vinculação.) Entretanto, a corrida não é infinita,\nentão é melhor conservar a sua energia para situações\nde emergência. Pular também diminui a sua energia.\n\nAlém disso, correr faz mais barulho do que andar ou\nagachar, então correr não é uma opção furtiva."
-		"ko"	"달릴 수 있는 능력을 가지고 있으며, 특수 공격키를\n꾹 누르면 능력을 쓸 수 있습니다.\n(보통 마우스 휠키로 바인드 되있습니다)\n하지만 무한으로 달릴 수 없으며,\n때문에 아찔한 상황을 대비해 스테미너를 아껴야합니다.\n또한 점프를 해도 스테미너가 닳습니다.\n추가로 뛸 때는 걷거나 앉아서 갈 때보다\n더 큰 소음을 냅니다."
+		"ko"	"특수 공격키를\n꾹 누르면 달리기가 가능합니다.\n(보통 마우스 휠키로 지정 되어있습니다)\n하지만 무한으로 달릴 수 없으며,\n때문에 아찔한 상황을 대비해 스태미너를 아껴야합니다.\n또한 점프를 해도 스태미너가 감소합습니다.\n추가로 뛸 때는 걷거나 앉아서 갈 때보다\n더 큰 소음을 냅니다."
 	}
 
 	"SF2 Help Class Info Menu Title"
@@ -443,7 +446,7 @@
 		"fi"	"Valitse vaihtoehto nähdäksesi tietoja jokaisesta\npelaaja luokasta, mukaan lukien parannuksista ja heikennyksistä"
 		"chi"	"选择一个选项来查看对应兵种的信息，\n其中包括了增强与削弱。"
 		"pt"	"Selecione uma opção para ver as informações de\ncada classe, incluindo vantagens e desvantagens."
-		"ko"	"버프와 너프를 포함한 각 클래스에 대한 정보를 보려면 옵션을 선택하세요."
+		"ko"	"각 클래스에 대한 장단점과 정보를 보려면 옵션을 선택하세요."
 	}
 
 	"SF2 Help Scout Class Info Menu Title"
@@ -459,6 +462,7 @@
 	"SF2 Help Scout Class Info Description"
 	{
 		"en"	"[+] 10%% increase in sprint duration\n[-] Low health, most affected by screen wobbling"
+		"ko"	"[+] 달리기 스태미너 5%% 증가 및 기본 뛰는 속도가 가장 빠름\n[+] 지팡이 사탕 착용시, 체력 자동 회복 능력을 얻으며 기존의 폭발 피해 취약 단점은 제거됨\n[-] 자신이 내는 소음 범위가 20%% 증가하여 보스에게 들키기 쉬워짐 \n[-] 스태틱에 15%% 더 취약하며 스태틱 회복량이 15%% 감소 "
 	}
 
 	"SF2 Help Soldier Class Info Menu Title"
@@ -474,6 +478,7 @@
 	"SF2 Help Soldier Class Info Description"
 	{
 		"en"	"[+] The Disciplinary Action increases both walking\nand sprinting speed\n[+] Cannot lose sprint points while non-sprint jumping\n[-] The Half-Zatoichi only restores 5 HP on kill\n[-] The Escape Plan only affects sprinting speed"
+		"ko"	"[+] 치료킷 획득시의 체력 회복량 10%% 증가\n[+] 뛰지 않고 점프할 때는 스태미너가 소모되지 않음 \n[+] 점프한 상태에서 마켓가든 모종삽으로 보스를 공격하면 2배의 피해를 입힐 수 있음 \n[+] 탈출 계획 착용시, 낮은 체력에 비례하여 이동 속도 증가"
 	}
 
 	"SF2 Help Sniper Class Info Menu Title"
@@ -489,6 +494,7 @@
 	"SF2 Help Sniper Class Info Description"
 	{
 		"en"	"[+] Blink rate increased by 100%%\n[-] Low health, most affected by screen wobbling"
+		"ko"	"[+] 울트라비전(기본 시야)의 범위가 2배로 증가하며 밝기가 25%% 증가\n[+] 스태틱 저항력 5%% 증가, 스태틱 자연 회복량 10%% 증가\n[+] 안락한 야영 장비 착용시, 체력 자동 회복 능력을 얻음"
 	}
 
 	"SF2 Help Demoman Class Info Menu Title"
@@ -503,7 +509,8 @@
 
 	"SF2 Help Demoman Class Info Description"
 	{
-		"en"	"[+] 10%% increase in sprint duration\n[-] The Half-Zatoichi only restores 5 HP on kill"
+		"en"	"[+] 15%% increase in sprint duration\n[-] The Half-Zatoichi only restores 5 HP on kill"
+		"ko"	"[+] 달리기 스태미너 15%% 증가\n[+] 스코틀랜드 악수 착용시, 체력 자동 회복 능력을 얻고, 팀원을 치유할 수 있음"
 	}
 
 	"SF2 Help Heavy Class Info Menu Title"
@@ -519,6 +526,7 @@
 	"SF2 Help Heavy Class Info Description"
 	{
 		"en"	"[+] Large health, least affected by screen wobbling\n[+] Bear traps only deal minimum damage\n[-] The Gloves of Running Urgently only affects sprinting speed"
+		"ko"	"[+] 스태틱 저항력 및 회복량이 15% 증가\n[+] 함정에 닿아도 10의 피해만 받고 함정에 잡히지 않음\n[+] G.R.U.의 무기 효과는 정글 인페르노 이전 효과로 변경됨\n[+] 샌드비치, 달로코스 바, 바나나를 착용해 체력 자동 회복 가능"
 	}
 
 	"SF2 Help Medic Class Info Menu Title"
@@ -534,6 +542,7 @@
 	"SF2 Help Medic Class Info Description"
 	{
 		"en"	"[+] Regenerates health over time\n[-] Prioritized target to bosses\n[-] Blocked on the special round Thanatophobia"
+		"ko"	"[+] 초당 자가 회복 기능을 기본으로 보유하고 있으며 달리기 스태미너 5%% 증가\n[-] 보스에게 끌리는 어그로가 20%% 증가\n[-] 현재 스페셜 라운드가 Thanatophobia(죽음공포증)일시 선택 불가능\n[-] 치료킷 획득 불가능\n[-] 프록시에게 받는 피해 15%% 증가"
 	}
 
 	"SF2 Help Pyro Class Info Menu Title"
@@ -549,6 +558,7 @@
 	"SF2 Help Pyro Class Info Description"
 	{
 		"en"	"[+] Fireproof, duh!\n[-] The Powerjack only restores 20 HP on kill, and\nmelee damage taken increased to 33%%"
+		"ko"	"[+] 화상에 면역\n[+] 학대사탕 착용시, 체력 자동 회복 가능\n[+] 전원잭의 받는 피해 증가가 20%%에서 10%%로 감소"
 	}
 
 	"SF2 Help Spy Class Info Menu Title"
@@ -564,6 +574,7 @@
 	"SF2 Help Spy Class Info Description"
 	{
 		"en"	"[+] All sounds you make are 30%% quieter to bosses\n[-] Low health, most affected by screen wobbling\n[-] Slightly prioritized target to bosses"
+		"ko"	"[+] 자신이 내는 소음과 범위가 30%% 감소하여, 보스에게 들키기 어려워짐\n[+] 달리기 스태미너 5%% 증가\n[-] 보스에게 끌리는 어그로가 10%% 증가"
 	}
 
 	"SF2 Help Engineer Class Info Menu Title"
@@ -579,6 +590,7 @@
 	"SF2 Help Engineer Class Info Description"
 	{
 		"en"	"[+] 50%% increase in Flashlight battery life\n[+] 20%% decrease in Flashlight recharge rate\n[+] Flashlight is overall brighter\n[-] Low health, most affected by screen wobbling"
+		"ko"	"[+] 손전등의 최대 게이지량이 3배만큼 증가\n[+] 손전등 게이지 자연 회복량 20%% 향상\n[+] 손전등의 밝기가 2배 증가\n[+] 플래시 스턴이 가능한 보스에게 입히는 손전등의 피해량 50%% 증가\n[+] 손전등을 끄고 킬때 발생하는 소음 범위 50%% 감소\n[-] 스태틱에 10%% 더 취약해짐\n[-] 울트라비전(기본 시야)가 활성화되는 시간이 1초 증가"
 	}
 
 	"SF2 Settings Menu Title"
@@ -696,6 +708,7 @@
 	"SF2 Settings View Bobbing Title"
 	{
 		"en" "Toggle camera view bobbing"
+		"ko" "카메라가 위아래로 흔들리는 효과 토글 설정"
 	}
 
 	"SF2 Settings Hud Version Title"
@@ -709,11 +722,13 @@
 	"SF2 Settings Hud New"
 	{
 		"en" "New"
+		"ko" "새 HUD"
 	}
 
 	"SF2 Settings Hud Legacy"
 	{
 		"en" "Legacy"
+		"ko" "구 버전 HUD"
 	}
 
 	"SF2 Settings Music Volume Title"
@@ -729,6 +744,7 @@
 	"SF2 Settings PvE Menu Title"
 	{
 		"en"	"PvE Arena Settings"
+		"ko"	"PvE 구역 설정"
 	}
 
 	"SF2 Music Volum Changed"
@@ -745,6 +761,7 @@
 	"SF2 Settings Projected Flashlight Title"
 	{
 		"en" 	"Projected flashlight"
+		"ko" 	"손전등 투시형"
 	}
 
 	"SF2 Settings Flashlight Temperature Title"
@@ -761,6 +778,7 @@
 	{
 		"#format"		"{1:d}"
 		"en" 	"{lightblue}Flashlight temperature set to {1}k kelvin."
+		"en" 	"{lightblue}손전등의 색감이 {1}도로 변경되었습니다."
 	}
 
 	"SF2 Ad Message 1"
@@ -968,13 +986,13 @@
 	"SF2 Give Queue Points"
 	{
 		"#format"	"{1:d}"
-		"en" "{dodgerblue}You have been given {lightblue}{1} {dodgerblue}queue points for playing. Type {lightblue}!slnext {dodgerblue}to see when you will get to play on {red}RED{dodgerblue}."
+		"en" "{dodgerblue}게임을 플레이하여 대기열 포인트 {lightblue}{1} {dodgerblue}점을 얻었습니다. 채팅에 {lightblue}!slnext {dodgerblue}를 입력하면 언제 {red}레드{dodgerblue} 팀에서 플레이할 수 있는지 알 수 있습니다."
 	}
 
 	"SF2 Give Group Queue Points"
 	{
 		"#format"	"{1:d}"
-		"en"	"{dodgerblue}Your group has been given {1} queue points for playing. Type {lightblue}!slnext {dodgerblue}to see when you will get to play on {red}RED{dodgerblue}."
+		"en"	"{dodgerblue}당신의 그룹이 게임을 플레이하여 대기열 포인트 {1} 점을 얻었습니다. 채팅에 {lightblue}!slnext {dodgerblue}를 입력하면 언제 {red}레드{dodgerblue} 팀에서 플레이할 수 있는지 알 수 있습니다."
 	}
 
 	"SF2 Force Play"
@@ -1051,16 +1069,19 @@
 	"SF2 Hint Noises"
 	{
 		"en"	"WARNING - Voice commands, weapon sounds, flashlight sounds, and footstep sounds can alert bosses."
+		"ko"	"!!!경고!!! - 음성 명령, 무기 공격 소리, 플래시라이트 작동 소리, 발걸음 소리는 보스가 경계 상태로 진입하게 만듭니다."
 	}
 
 	"SF2 Hint Crouch"
 	{
 		"en"	"Crouch - %%duck%%\nSneak around quietly"
+		"ko"	"앉기 - %%duck%%\n앉은 상태로 이동하면, 보스가 당신의 위치를 제대로 파악할 수 없습니다."
 	}
 
 	"SF2 Admin Menu Title"
 	{
 		"en"	"SF2 Commands"
+		"ko"	"슬렌더 포트리스 2 명령어"
 	}
 
 	"SF2 Admin Menu Boss Main"
@@ -1179,18 +1200,21 @@
 	"SF2 Disabled Boss Pack"
 	{
 		"en"	"{red}Boss Pack vote is disabled on this server."
+		"ko"	"{red}이 서버는 보스 팩 투표가 비활성화된 상태입니다."
 	}
 
 	"SF2 Boss Pack Next"
 	{
 		"#format" "{1:s}"
 		"en"	"{dodgerblue}Next boss pack: {lightblue}{1}{default}."
+		"ko"	"{dodgerblue}다음 보스팩: {lightblue}{1}{default}."
 	}
 
 	"SF2 Current Boss Pack"
 	{
 		"#format" "{1:s}"
 		"en"	"{dodgerblue}Current boss pack: {lightblue}{1}{default}."
+		"ko"	"{dodgerblue}현재 보스 팩: {lightblue}{1}{default}."
 	}
 
 	"SF2 Admin Menu Player Set Play State"
@@ -1710,7 +1734,7 @@
 		"fi"	"Et voi suorittaa tätä komentoa, koska et ole ryhmänjohtaja."
 		"chi"	"因为你不是组领袖，所以你不可以使用此命令！"
 		"pt"	"Apenas o líder do grupo pode usar este comando."
-		"ko"	"그룹 리더가 아니므로 이 명령어는 수행할 수 없습니다."
+		"ko"	"당신은 그룹 리더가 아닙니다. 이 명령어는 수행할 수 없습니다."
 	}
 
 	"SF2 No Players Available"
@@ -1720,7 +1744,7 @@
 		"fi"	"Et voi suorittaa tätä komentoa, koska yhtään pelaajia ei ole käytettävissä!"
 		"chi"	"因为已经没有可用玩家，所以你不可以使用此命令！"
 		"pt"	"Não é possível usar este comando porque não há jogadores disponíveis!"
-		"ko"	"플레이어가 그룹에 없으므로 이 명령어는 수행할 수 없습니다."
+		"ko"	"플레이어가 없으므로 이 명령어를 수행할 수 없습니다!."
 	}
 
 	"SF2 Player Not In Group"
@@ -1730,7 +1754,7 @@
 		"fi"	"Et voi suorittaa tätä komentoa, koska pelaaja ei ole ryhmässäsi."
 		"chi"	"因为此玩家不在你的组，所以你不可以使用此命令！"
 		"pt"	"Não é possível usar este comando porque o jogador não está no seu grupo."
-		"ko"	"플레이어가 이미 다른 그룹에 있으므로 이 명령어는 수행할 수 없습니다."
+		"ko"	"그 플레이어가 당신의 그룹에 없으므로 이 명령어는 수행할 수 없습니다."
 	}
 
 	"SF2 Player In Another Group"
@@ -1740,7 +1764,7 @@
 		"fi"	"Et voi suorittaa tätä komentoa, koska pelaaja on jo toisessa ryhmässä."
 		"chi"	"因为玩家已在其他组，所以你不可以使用此命令！"
 		"pt"	"Não é possível usar este comando porque o jogador já está em outro grupo."
-		"ko"	"플레이어가 이미 그룹에 있으므로 이 명령어는 수행할 수 없습니다."
+		"ko"	"그 플레이어가 이미 다른 그룹에 있으므로 이 명령어는 수행할 수 없습니다."
 	}
 
 	"SF2 Player In Group"
@@ -1750,6 +1774,7 @@
 		"fi"	"Et voi suorittaa tätä komentoa, koska pelaaja on jo ryhmässäsi."
 		"chi"	"因为玩家已在你的组，所以你不可以使用此命令！"
 		"pt"	"Não é possível usar este comando porque o jogador já está no seu grupo."
+		"ko"	"그 플레이어가 이미 당신의 그룹에 있으므로 이 명령어는 수행할 수 없습니다."
 	}
 
 	"SF2 Player In Game"
@@ -2243,64 +2268,76 @@
 	{
 		"#format"	"{1:d}"
 		"en"	"You are exiting the PvE Arena!\nYou will lose your weapons in {1} second(s) if you don't return!"
+		"ko"	"PvE 구역을 벗어났습니다!\n{1} 초 안으로 돌아오지 않으면 무기를 잃게 됩니다!"
 	}
 
 	"SF2 PvE Invalid File"
 	{
 		"en" "That is an invalid sound file."
+		"ko" "그 파일은 잘못된 사운드 파일입니다."
 	}
 
 	"SF2 PvE Add Unique Track"
 	{
 		"en" "You already added that soundtrack, add a unique soundtrack."
+		"ko" "당신은 이미 그 사운드트랙을 추가한 상태입니다. 독특한 사운드트랙을 추가하세요."
 	}
 
 	"SF2 PvE Tracks Unavailable"
 	{
 		"en" "You don't have any more music sounds available, please remove at least one music file."
+		"ko" "더 이상 사용할 수 있는 음악이 없습니다. 최소한 하나의 음악 파일을 삭제해 주세요."
 	}
 
 	"SF2 PvE Added Track"
 	{
 		"#format" "{1:s}"
 		"en" "Successfully added sound file {1}."
+		"ko" "음악 파일 {1} 이 추가되었습니다."
 	}
 
 	"SF2 PvE Music Settings Title"
 	{
 		"en" "Adjust music settings"
+		"ko" "음악 설정 조정"
 	}
 
 	"SF2 PvE No Tracks 1-3"
 	{
 		"en" "It looks like you don't have any music themes added, use !sf2_add_pve_music or sm_sf2_add_pve_music (for console users) to add a sound file."
+		"ko" "음악 테마가 추가되지 않은 것 같습니다. 채팅에 !sf2_add_pve_music 또는 (개발자 콘솔에) sm_sf2_add_pve_music 를 입력하여 사운드 파일을 추가하세요."
 	}
 
 	"SF2 PvE No Tracks 2-3"
 	{
 		"en" "Example: !sf2_add_pve_music \"slender_boxing_ring/music/metal_gear_rising_revengeance_it_has_to_be_this_way.wav\""
+		"ko" "예시: !sf2_add_pve_music \"slender_boxing_ring/music/metal_gear_rising_revengeance_it_has_to_be_this_way.wav\""
 	}
 
 	"SF2 PvE No Tracks 3-3"
 	{
 		"en" "Make sure the sound file you want to add is found in your TF2 game files otherwise it will not play for you and print out a missing sound error."
+		"ko" "추가하려는 사운드 파일이 팀 포트리스 2 게임 파일에 내부에 있는지 재확인하세요. 그렇지 않으면 음악이 재생되지 않고 사운드 누락 오류가 출력됩니다."
 	}
 
 	"SF2 PvE Set Volume"
 	{
 		"#format" "{1:d}"
 		"en" "Set volume ({1}%%)"
+		"ko" "볼륨 설정 ({1}%%)"
 	}
 
 	"SF2 PvE Remove Music"
 	{
 		"en" "Remove"
+		"ko" "제거"
 	}
 
 	"SF2 PvE Removed Music"
 	{
 		"#format" "{1:s}"
 		"en" "Removed music {1}."
+		"ko" "다음 음악 제거됨 : {1}."
 	}
 }
 
