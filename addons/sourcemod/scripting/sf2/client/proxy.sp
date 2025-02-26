@@ -1454,7 +1454,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 									}
 									case TFClass_Engineer:
 									{
-										itemHandle = PrepareItemHandle("tf_weapon_shotgun", 9, 0, 0, "");
+										itemHandle = PrepareItemHandle("tf_weapon_shotgun_primary", 9, 0, 0, "");
 									}
 								}
 							}
@@ -1472,7 +1472,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 									}
 									case TFClass_Soldier:
 									{
-										itemHandle = PrepareItemHandle("tf_weapon_shotgun", 10, 0, 0, "");
+										itemHandle = PrepareItemHandle("tf_weapon_shotgun_soldier", 10, 0, 0, "");
 									}
 									case TFClass_DemoMan:
 									{
@@ -1480,7 +1480,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 									}
 									case TFClass_Heavy:
 									{
-										itemHandle = PrepareItemHandle("tf_weapon_shotgun", 11, 0, 0, "");
+										itemHandle = PrepareItemHandle("tf_weapon_shotgun_hwg", 11, 0, 0, "");
 									}
 									case TFClass_Medic:
 									{
@@ -1488,7 +1488,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 									}
 									case TFClass_Pyro:
 									{
-										itemHandle = PrepareItemHandle("tf_weapon_shotgun", 12, 0, 0, "");
+										itemHandle = PrepareItemHandle("tf_weapon_shotgun_pyro", 12, 0, 0, "");
 									}
 									case TFClass_Engineer:
 									{
