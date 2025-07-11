@@ -337,7 +337,7 @@ float GetStaminaDecreaseRate(SF2_BasePlayer client)
 	{
 		if (class == TFClass_DemoMan)
 		{
-			rate *= 0.9; // Demoman gets a 10% sprint duration increase
+			rate *= 0.85; // Demoman gets a 10% sprint duration increase
 		}
 		else if (class == TFClass_Scout)
 		{
@@ -645,7 +645,8 @@ static void Hook_SpeedThink(int client)
 			{
 				if (player.GetPropEnt(Prop_Send, "m_hActiveWeapon") == weaponEnt)
 				{
-					sprintSpeed -= (sprintSpeed * 0.035);
+					sprintSpeed -= (sprintSpeed * 0.05);
+					walkSpeed -= (walkSpeed * 0.05);
 				}
 			}
 			case 214: // The Powerjack
@@ -655,14 +656,14 @@ static void Hook_SpeedThink(int client)
 					sprintSpeed += (sprintSpeed * 0.03);
 				}
 			}
-			case 239: // Gloves of Running Urgently
+			case 355: // 	The Fan O'War
 			{
 				if (player.GetPropEnt(Prop_Send, "m_hActiveWeapon") == weaponEnt)
 				{
-					sprintSpeed += (sprintSpeed * 0.075);
+					sprintSpeed += (sprintSpeed * 0.035);
 				}
 			}
-			case 1084: // Festive Gloves of Running Urgently (G.R.U.)
+			case 239: // Gloves of Running Urgently
 			{
 				if (player.GetPropEnt(Prop_Send, "m_hActiveWeapon") == weaponEnt)
 				{
@@ -676,18 +677,11 @@ static void Hook_SpeedThink(int client)
 					sprintSpeed += (sprintSpeed * 0.075);
 				}
 			}
-			case 355: // The Fan O'War
+			case 1084: //Festive Gloves of Running Urgently (G.R.U.)
 			{
 				if (player.GetPropEnt(Prop_Send, "m_hActiveWeapon") == weaponEnt)
 				{
-					sprintSpeed += (sprintSpeed * 0.035);
-				}
-			}
-			case 461: // Big Earner
-			{
-				if (player.GetPropEnt(Prop_Send, "m_hActiveWeapon") == weaponEnt)
-				{
-					sprintSpeed -= (sprintSpeed * 0.022);
+					sprintSpeed += (sprintSpeed * 0.075);
 				}
 			}
 			case 775: // Escape Plan
@@ -708,25 +702,44 @@ static void Hook_SpeedThink(int client)
 				}
 				else if (percentage < 0.405 && percentage >= 0.205)
 				{
-					walkSpeed += (walkSpeed * 0.2);
-					sprintSpeed += (sprintSpeed * 0.2);
+					walkSpeed += (walkSpeed * 0.15);
+					sprintSpeed += (sprintSpeed * 0.15);
 				}
 				else if (percentage < 0.205)
 				{
-					walkSpeed += (walkSpeed * 0.32);
-					sprintSpeed += (sprintSpeed * 0.3);
+					walkSpeed += (walkSpeed * 0.2);
+					sprintSpeed += (sprintSpeed * 0.2);
 				}
 			}
-			case 1190: // Banana
+			case 1190: // Second Banana
 			{
 				float health = float(player.GetProp(Prop_Send, "m_iHealth"));
 				float maxHealth = float(SDKCall(g_SDKGetMaxHealth, player.index));
 				float percentage = health / maxHealth;
 
-				if (percentage >= 0.001)
+				if (percentage >= 0.0001)
 				{
-					walkSpeed += (walkSpeed * 0.022);
-					sprintSpeed += (sprintSpeed * 0.022);
+					walkSpeed += (walkSpeed * 0.025);
+					sprintSpeed += (sprintSpeed * 0.025);
+				}
+			}
+			case 461: // The Big Earner
+			{
+				if (player.GetPropEnt(Prop_Send, "m_hActiveWeapon") == weaponEnt)
+				{
+					sprintSpeed -= (sprintSpeed * 0.02);
+				}
+			}
+			case 401: //The Shahanshah
+			{
+				float health = float(player.GetProp(Prop_Send, "m_iHealth"));
+				float maxHealth = float(SDKCall(g_SDKGetMaxHealth, player.index));
+				float percentage = health / maxHealth;
+
+				if (percentage <= 0.505)
+				{
+					walkSpeed += (walkSpeed * 0.03);
+					sprintSpeed += (sprintSpeed * 0.03);
 				}
 			}
 		}
@@ -771,7 +784,7 @@ static void Hook_SpeedThink(int client)
 				{
 					if (class == TFClass_Spy)
 					{
-						walkSpeed *= 1.28;
+						walkSpeed *= 1.34;
 					}
 					else
 					{
@@ -787,7 +800,7 @@ static void Hook_SpeedThink(int client)
 							int itemDefInt = GetEntProp(weaponEnt, Prop_Send, "m_iItemDefinitionIndex");
 							if (itemDefInt == 214 && player.GetPropEnt(Prop_Send, "m_hActiveWeapon") == weaponEnt)
 							{
-								walkSpeed *= 1.32;
+								walkSpeed *= 1.34;
 							}
 							else
 							{

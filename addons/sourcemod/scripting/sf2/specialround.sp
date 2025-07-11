@@ -343,7 +343,7 @@ static void OnPlayerDeath(SF2_BasePlayer client, int attacker, int inflictor, bo
 			{
 				case 1:
 				{
-					player.Bleed(true, _, 1.5);
+					player.Bleed(true, _, 1.0);
 					EmitSoundToClient(reds, BLEED_ROLL, reds, SNDCHAN_AUTO, SNDLEVEL_SCREAMING);
 				}
 				case 2:
@@ -353,13 +353,12 @@ static void OnPlayerDeath(SF2_BasePlayer client, int attacker, int inflictor, bo
 				}
 				case 3:
 				{
-					player.Bleed(true, _, 1.5);
-					EmitSoundToClient(reds, BLEED_ROLL, reds, SNDCHAN_AUTO, SNDLEVEL_SCREAMING);
+					player.ChangeCondition(TFCond_Jarated, _, 5.0);
+					EmitSoundToClient(reds, GAS_ROLL, reds, SNDCHAN_AUTO, SNDLEVEL_SCREAMING);
 				}
 				case 4:
 				{
-					player.Bleed(true, _, 1.5);
-					EmitSoundToClient(reds, BLEED_ROLL, reds, SNDCHAN_AUTO, SNDLEVEL_SCREAMING);
+					player.ChangeCondition(TFCond_MarkedForDeath, _, 5.0);
 				}
 				case 5:
 				{
@@ -623,7 +622,7 @@ static void SpecialRoundGetDescriptionChat(int specialRound, char[] buffer,int b
 	}
 
 	g_SpecialRoundsConfig.Rewind();
-	char specialRoundString[256];
+	char specialRoundString[192];
 	FormatEx(specialRoundString, sizeof(specialRoundString), "%d", specialRound);
 
 	if (!g_SpecialRoundsConfig.JumpToKey(specialRoundString))
@@ -837,10 +836,10 @@ static void SpecialRoundCycleFinish()
 		char descHud[128];
 		SpecialRoundGetDescriptionHud(g_SpecialRoundType, descHud, sizeof(descHud));
 
-		char iconHud[64];
+		char iconHud[128];
 		SpecialRoundGetIconHud(g_SpecialRoundType, iconHud, sizeof(iconHud));
 
-		char descChat[256];
+		char descChat[192];
 		SpecialRoundGetDescriptionChat(g_SpecialRoundType, descChat, sizeof(descChat));
 
 		SpecialRoundGameText(descHud, iconHud);
@@ -855,7 +854,7 @@ static ArrayList SpecialEnabledList()
 	if (g_IsSpecialRound)
 	{
 		ArrayList enabledRounds = new ArrayList();
-		char snatcher[64] = "hypersnatcher_nerfed";
+		char snatcher[128] = "hypersnatcher_nerfed";
 
 		int players;
 		for (int client = 1; client <= MaxClients; client++)
@@ -1065,8 +1064,8 @@ void SpecialRoundStart()
 		case SPECIALROUND_DOUBLETROUBLE:
 		{
 			char buffer[SF2_MAX_PROFILE_NAME_LENGTH];
-			ArrayList selectableBosses = GetSelectableBossProfileList().Clone();
-			ArrayList selectableBoxingBosses = GetSelectableBoxingBossProfileList().Clone();
+			ArrayList selectableBosses = GetSelectableBossProfileList();
+			ArrayList selectableBoxingBosses = GetSelectableBoxingBossProfileList();
 
 			if (!SF_IsBoxingMap())
 			{
@@ -1084,8 +1083,6 @@ void SpecialRoundStart()
 					AddProfile(buffer);
 				}
 			}
-			delete selectableBosses;
-			delete selectableBoxingBosses;
 			SF_AddSpecialRound(SPECIALROUND_DOUBLETROUBLE);
 		}
 		case SPECIALROUND_SILENTSLENDER:
@@ -1101,8 +1098,7 @@ void SpecialRoundStart()
 			}
 
 			char buffer[SF2_MAX_PROFILE_NAME_LENGTH];
-			ArrayList selectableBosses = GetSelectableBossProfileList().Clone();
-			ArrayList selectableBoxingBosses = GetSelectableBoxingBossProfileList().Clone();
+			ArrayList selectableBosses = GetSelectableBossProfileList();
 
 			if (selectableBosses.Length > 0)
 			{
@@ -1118,8 +1114,6 @@ void SpecialRoundStart()
 				selectableBosses.GetString(GetRandomInt(0, selectableBosses.Length - 1), buffer, sizeof(buffer));
 				AddProfile(buffer, _, _, _, false);
 			}
-			delete selectableBosses;
-			delete selectableBoxingBosses;
 			SF_AddSpecialRound(SPECIALROUND_SILENTSLENDER);
 		}
 		case SPECIALROUND_THANATOPHOBIA:
@@ -1235,7 +1229,7 @@ void SpecialRoundStart()
 		{
 			if (g_DifficultyConVar.IntValue < 4)
 			{
-				g_DifficultyConVar.SetString("4"); // Override difficulty to Nightmare?
+				g_DifficultyConVar.SetString("4"); // Override difficulty to nightmare. not insane (nightmare time)
 			}
 			if (g_OverrideDifficulty == -1 || g_OverrideDifficulty < 4)
 			{
@@ -1280,15 +1274,15 @@ void SpecialRoundStart()
 			ForceInNextPlayersInQueue(g_MaxPlayersConVar.IntValue);
 			if (g_DifficultyConVar.IntValue < 4 && !SF_IsBoxingMap())
 			{
-				g_DifficultyConVar.SetString("4"); // Override difficulty to Nightmare.originisInsane.
+				g_DifficultyConVar.SetString("4"); // Override difficulty to nightmare. not insane
 			}
 			if (g_OverrideDifficulty == -1 || g_OverrideDifficulty < 4)
 			{
 				g_OverrideDifficulty = 4;
 			}
 			char buffer[SF2_MAX_PROFILE_NAME_LENGTH];
-			ArrayList selectableBosses = GetSelectableBossProfileList().Clone();
-			ArrayList selectableBoxingBosses = GetSelectableBossProfileList().Clone();
+			ArrayList selectableBosses = GetSelectableBossProfileList();
+			ArrayList selectableBoxingBosses = GetSelectableBossProfileList();
 			if (!SF_IsBoxingMap())
 			{
 				if (selectableBosses.Length > 0)
@@ -1305,8 +1299,6 @@ void SpecialRoundStart()
 					AddProfile(buffer);
 				}
 			}
-			delete selectableBosses;
-			delete selectableBoxingBosses;
 			SF_AddSpecialRound(SPECIALROUND_2DOUBLE);
 		}
 		case SPECIALROUND_SUPRISE:
@@ -1319,7 +1311,7 @@ void SpecialRoundStart()
 			ForceInNextPlayersInQueue(g_MaxPlayersConVar.IntValue);
 			if (g_DifficultyConVar.IntValue < 5)
 			{
-				g_DifficultyConVar.SetString("5"); // Override difficulty to Apollyon.originisInsane
+				g_DifficultyConVar.SetString("5"); // Override difficulty to apollyon. not insane (Abyss)
 			}
 			if (g_OverrideDifficulty == -1 || g_OverrideDifficulty < 5)
 			{
@@ -1341,13 +1333,13 @@ void SpecialRoundStart()
 		}
 		case SPECIALROUND_MODBOSSES:
 		{
-			char buffer[SF2_MAX_PROFILE_NAME_LENGTH], nightmareDisplay[256];
+			char buffer[SF2_MAX_PROFILE_NAME_LENGTH], nightmareDisplay[192];
 			if (!SF_SpecialRound(SPECIALROUND_DOUBLEROULETTE) && !SF_SpecialRound(SPECIALROUND_REVOLUTION))
 			{
 				NPCStopMusic();
 				NPCRemoveAll();
 			}
-			ArrayList selectableBosses = GetSelectableAdminBossProfileList().Clone();
+			ArrayList selectableBosses = GetSelectableAdminBossProfileList();
 			if (selectableBosses.Length > 0)
 			{
 				selectableBosses.GetString(GetRandomInt(0, selectableBosses.Length - 1), buffer, sizeof(buffer));
@@ -1524,7 +1516,6 @@ void SpecialRoundStart()
 					g_OverrideDifficulty = randomDifficulty;
 				}
 			}
-			delete selectableBosses;
 			SF_AddSpecialRound(SPECIALROUND_MODBOSSES);
 		}
 		case SPECIALROUND_TRIPLEBOSSES:
@@ -1581,13 +1572,13 @@ void SpecialRoundStart()
 		}
 		case SPECIALROUND_WALLHAX:
 		{
-			if (g_DifficultyConVar.IntValue < 3)
+			if (g_DifficultyConVar.IntValue < 4)
 			{
-				g_DifficultyConVar.SetString("3"); // Override difficulty to Insane.
+				g_DifficultyConVar.SetString("4"); // Override difficulty to nightmare. not insane (wall hax)
 			}
-			if (g_OverrideDifficulty == -1 || g_OverrideDifficulty < 3)
+			if (g_OverrideDifficulty == -1 || g_OverrideDifficulty < 4)
 			{
-				g_OverrideDifficulty = 3;
+				g_OverrideDifficulty = 4;
 			}
 
 			SF_AddSpecialRound(SPECIALROUND_WALLHAX);
@@ -1724,10 +1715,14 @@ void SpecialRoundStart()
 		}
 		case SPECIALROUND_BEATBOX:
 		{
-			g_BeatBoxCueIndex = 0;
-			g_BeatBoxMasterTime = CreateTimer(2.45, Timer_BeatBoxMasterTimer, _, TIMER_FLAG_NO_MAPCHANGE);
-			g_BeatBoxMusicTimer = CreateTimer(0.1, Timer_BeatBoxMusic, _, TIMER_FLAG_NO_MAPCHANGE | TIMER_REPEAT);
-			EmitBeatBoxMusic();
+			if (g_DifficultyConVar.IntValue < 4)
+			{
+				g_DifficultyConVar.SetString("4"); // Override difficulty to nightmare. not insane (nightmare time)
+			}
+			if (g_OverrideDifficulty == -1 || g_OverrideDifficulty < 4)
+			{
+				g_OverrideDifficulty = 4;
+			}
 			SF_AddSpecialRound(SPECIALROUND_BEATBOX);
 		}
 		default:
@@ -1778,10 +1773,10 @@ Action Timer_DisplaySpecialRound(Handle timer)
 	char descHud[128];
 	SpecialRoundGetDescriptionHud(g_SpecialRoundType, descHud, sizeof(descHud));
 
-	char iconHud[64];
+	char iconHud[128];
 	SpecialRoundGetIconHud(g_SpecialRoundType, iconHud, sizeof(iconHud));
 
-	char descChat[256];
+	char descChat[192];
 	SpecialRoundGetDescriptionChat(g_SpecialRoundType, descChat, sizeof(descChat));
 
 	SpecialRoundGameText(descHud, iconHud);
@@ -1835,7 +1830,7 @@ static void SpecialCreateVote()
 			enabledRounds.Erase(eraseRound);
 		}
 
-		char item[30], itemOutPut[30];
+		char item[90], itemOutPut[90];
 		switch (round)
 		{
 			case SPECIALROUND_DOUBLETROUBLE:
@@ -1880,7 +1875,7 @@ static void SpecialCreateVote()
 			}
 			case SPECIALROUND_INFINITEFLASHLIGHT:
 			{
-				FormatEx(item, sizeof(item), "손전등 무한");
+				FormatEx(item, sizeof(item), "배터리 무한");
 			}
 			case SPECIALROUND_DREAMFAKEBOSSES:
 			{
@@ -1892,7 +1887,7 @@ static void SpecialCreateVote()
 			}
 			case SPECIALROUND_NOPAGEBONUS:
 			{
-				FormatEx(item, sizeof(item), "제출 기한");
+				FormatEx(item, sizeof(item), "제출기한");
 			}
 			case SPECIALROUND_DUCKS:
 			{
@@ -1920,7 +1915,7 @@ static void SpecialCreateVote()
 			}
 			case SPECIALROUND_REVOLUTION:
 			{
-				FormatEx(item, sizeof(item), "룰렛 혁명");
+				FormatEx(item, sizeof(item), "스페셜 라운드 혁명");
 			}
 			case SPECIALROUND_DISTORTION:
 			{
@@ -1976,7 +1971,7 @@ static void SpecialCreateVote()
 			}
 			case SPECIALROUND_BEATBOX:
 			{
-				FormatEx(item, sizeof(item), "비트박스");
+				FormatEx(item, sizeof(item), "정적");
 			}
 		}
 		for (int bit = 0; bit < 30; bit++)
@@ -2035,7 +2030,7 @@ static int Menu_SpecialVote(Handle menu, MenuAction action,int param1,int param2
 		}
 		case MenuAction_VoteEnd:
 		{
-			char specialRound[64], specialRoundName[128], display[120];
+			char specialRound[128], specialRoundName[128], display[120];
 			NativeVotes_GetItem(menu, param1, specialRound, sizeof(specialRound), specialRoundName, sizeof(specialRoundName));
 
 			CPrintToChatAll("{royalblue}%t {default}%t", "SF2 Prefix", "SF2 Special Round Vote Successful", specialRoundName);

@@ -843,7 +843,7 @@ static int Menu_VoteDifficulty(Menu menu, MenuAction action, int param1, int par
 			difficulty = Difficulty_Insane;
 		}
 		
-		if ((SF_SpecialRound(SPECIALROUND_INSANEDIFFICULTY) || SF_SpecialRound(SPECIALROUND_2DOUBLE)) && difficulty < Difficulty_Nightmare)
+		if ((SF_SpecialRound(SPECIALROUND_INSANEDIFFICULTY) || SF_SpecialRound(SPECIALROUND_BEATBOX) || SF_SpecialRound(SPECIALROUND_2DOUBLE)) && difficulty < Difficulty_Nightmare)
 		{
 			difficulty = Difficulty_Nightmare;
 		}

@@ -142,7 +142,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 	#endif
 
 	bool removeWeapons = true;
-	bool keepUtilityItems = false;
+	bool keepUtilityItems = true;
 	bool restrictWeapons = true;
 	bool useStock = false;
 	bool removeWearables = false;
@@ -168,17 +168,17 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 	if (client.IsInPvP || (SF_IsRaidMap() && !client.IsEliminated))
 	{
 		removeWeapons = false;
-		restrictWeapons = true;
+		restrictWeapons = false;
 		keepUtilityItems = false;
-		preventAttack = false;
+		preventAttack = true;
 	}
 
 	if (IsRoundInWarmup())
 	{
 		removeWeapons = false;
-		restrictWeapons = false;
+		restrictWeapons = true;
 		keepUtilityItems = false;
-		preventAttack = false;
+		preventAttack = true;
 	}
 
 	if (client.IsInPvE)
@@ -194,7 +194,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 		{
 			removeWeapons = false;
 			restrictWeapons = true;
-			keepUtilityItems = false;
+			keepUtilityItems = true;
 			preventAttack = false;
 		}
 	}
@@ -282,7 +282,7 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 			int itemIndex = GetEntProp(weaponEnt, Prop_Send, "m_iItemDefinitionIndex");
 			switch (itemIndex)
 			{
-				case 163, 129, 226, 354, 1001, 131, 406, 1099, 42, 159, 311, 433, 863, 1002, 1190:
+				case 163, 129, 226, 354, 1001, 42, 159, 311, 433, 863, 1002, 1190:
 				{
 					//Do nothing
 				}
@@ -642,7 +642,7 @@ public Action TF2Items_OnGiveNamedItem(int client, char[] classname, int itemDef
 	{
 		case 642:
 		{
-			Handle itemOverride = PrepareItemHandle("tf_wearable", 642, 0, 0, "376 ; 1.0 ; 377 ; 0.2 ; 57 ; 2 ; 412 ; 1.10");
+			Handle itemOverride = PrepareItemHandle("tf_wearable", 642, 0, 0, "376 ; 1.0 ; 377 ; 0.2 ; 57 ; 4 ; 412 ; 1.0");
 
 			if (itemOverride != null)
 			{
