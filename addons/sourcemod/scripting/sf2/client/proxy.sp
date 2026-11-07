@@ -1313,6 +1313,14 @@ Action Timer_ClientPostWeapons(Handle timer, any userid)
 			}
 		}
 
+		while ((ent = FindEntityByClassname(ent, "tf_wearable_demoshield")) != -1)
+		{
+			if (GetEntPropEnt(ent, Prop_Send, "m_hOwnerEntity") == client)
+			{
+				RemoveEntity(ent);
+			}
+		}
+
 		int weaponEnt = INVALID_ENT_REFERENCE;
 		weaponEnt = GetPlayerWeaponSlot(client, TFWeaponSlot_Secondary);
 

@@ -582,7 +582,7 @@ void ReloadBossProfiles()
 	int seeds[1];
 	seeds[0] = GetTime();
 	SetURandomSeed(seeds, 1);
-	Format(bosspack, sizeof(bosspack), "bosspack%d", GetRandomInt(1, 11));
+	Format(bosspack, sizeof(bosspack), "bosspack%d", GetRandomInt(1, 6));
 	g_BossProfilePackConVar.SetString(bosspack);
 
 	// Try loading boss packs, if they're set to load.
